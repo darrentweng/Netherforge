@@ -44,7 +44,14 @@ public class Board {
         // Code to draw the visible grid
         for (int row = 0; row < visibleGrid.length; row++) {
             for (int col = 0; col < visibleGrid[row].length; col++) {
-                System.out.print(visibleGrid[row][col]);
+                if (visibleGrid[row][col] == null) {
+                    System.out.print("•");
+                }
+                else {
+                    System.out.print(visibleGrid[row][col]);
+                }
+                
+                
             }
             System.out.println();
         }
