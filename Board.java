@@ -58,4 +58,36 @@ public class Board {
     }
     
     // Additional methods for managing the board
+    public void movePlayerX(int dx) {
+        int newPlayerX = playerX + dx;
+        
+        // Check if the new playerX is within the bounds of the mapGrid
+        if (newPlayerX >= 0 && newPlayerX < mapGrid[0].length) {
+            playerX = newPlayerX;
+        }
+    }
+    
+    public void movePlayerY(int dy) {
+        int newPlayerY = playerY + dy;
+        
+        // Check if the new playerY is within the bounds of the mapGrid
+        if (newPlayerY >= 0 && newPlayerY < mapGrid.length) {
+            playerY = newPlayerY;
+        }
+    }
+    public void setTile(int x, int y, Object tile) {
+        // Check if the given coordinates are within the bounds of the mapGrid
+        if (x >= 0 && x < mapGrid[0].length && y >= 0 && y < mapGrid.length) {
+            mapGrid[y][x] = tile;
+        }
+    }
+    public boolean isValidMove(int x, int y) {
+        // Check if the given coordinates are within the bounds of the mapGrid
+        if (x >= 0 && x < mapGrid[0].length && y >= 0 && y < mapGrid.length) {
+            Object tile = mapGrid[y][x];
+            return !(tile instanceof Block || tile instanceof Mob);
+        }
+        return false;
+    }
+
 }
