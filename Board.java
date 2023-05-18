@@ -45,7 +45,7 @@ public class Board {
         for (int row = 0; row < visibleGrid.length; row++) {
             for (int col = 0; col < visibleGrid[row].length; col++) {
                 if (visibleGrid[row][col] == null) {
-                    System.out.print("•");
+                    System.out.print(".");
                 }
                 else {
                     System.out.print(visibleGrid[row][col]);
