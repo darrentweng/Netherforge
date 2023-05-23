@@ -5,6 +5,7 @@ public class Mob {
     public Mob(int x, int y) {
         this.x = x;
         this.y = y;
+        
     }
     
     public void moveTowardsPlayer(Player player) {

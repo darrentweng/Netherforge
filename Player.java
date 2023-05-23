@@ -10,22 +10,24 @@ public class Player {
     public void move(int dx, int dy, Board board) {
         int newPlayerX = x + dx;
         int newPlayerY = y + dy;
-        
-        // Check if the new player position is within the bounds of the board
         if (board.isValidMove(newPlayerX, newPlayerY)) {
-            // Set the current player position as an empty tile on the board
-            board.setTile(x, y, null);
-            
-            // Update the player position
             x = newPlayerX;
             y = newPlayerY;
-            
-            // Set the new player position on the board
-            board.setTile(x, y, this);
         }
     }
 
-    
+    public int getPlayerX() {
+        return x;
+    }
+    public int getPlayerY() {
+        return y;
+    }
+    public void setPlayerX(int _x) {
+        x = _x;
+    }
+    public void setPlayerY(int _y) {
+        y = _y;
+    }
     // Additional methods for player actions and attributes
 
     //takes player input, returns false if found no applicable inputs

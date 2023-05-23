@@ -1,10 +1,11 @@
 public class Board {
     private Object[][] visibleGrid;
     private Object[][] mapGrid;
+    private Object[][] entityGrid;
     private int visibleWidth;
     private int visibleHeight;
-    private int playerX;
-    private int playerY;
+    private Player player;
+
     
     public Board(int mapWidth, int mapHeight, int visibleWidth, int visibleHeight) {
         this.visibleWidth = visibleWidth;
@@ -18,6 +19,8 @@ public class Board {
     }
     
     public void drawBoard() {
+        int playerX = player.getPlayerX();
+        int playerY = player.getPlayerY();
         int startX = playerX - visibleWidth / 2;
         int startY = playerY - visibleHeight / 2;
         
@@ -44,7 +47,10 @@ public class Board {
         // Code to draw the visible grid
         for (int row = 0; row < visibleGrid.length; row++) {
             for (int col = 0; col < visibleGrid[row].length; col++) {
-                if (visibleGrid[row][col] == null) {
+                if (row  == visibleGrid.length/2 && col == visibleGrid[row].length/2) {
+                    System.out.print("@");
+                }
+                else if (visibleGrid[row][col] == null) {
                     System.out.print(".");
                 }
                 else {
@@ -57,24 +63,7 @@ public class Board {
         }
     }
     
-    // Additional methods for managing the board
-    public void movePlayerX(int dx) {
-        int newPlayerX = playerX + dx;
-        
-        // Check if the new playerX is within the bounds of the mapGrid
-        if (newPlayerX >= 0 && newPlayerX < mapGrid[0].length) {
-            playerX = newPlayerX;
-        }
-    }
     
-    public void movePlayerY(int dy) {
-        int newPlayerY = playerY + dy;
-        
-        // Check if the new playerY is within the bounds of the mapGrid
-        if (newPlayerY >= 0 && newPlayerY < mapGrid.length) {
-            playerY = newPlayerY;
-        }
-    }
     public void setTile(int x, int y, Object tile) {
         // Check if the given coordinates are within the bounds of the mapGrid
         if (x >= 0 && x < mapGrid[0].length && y >= 0 && y < mapGrid.length) {
