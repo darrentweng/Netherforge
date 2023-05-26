@@ -1,11 +1,6 @@
-public class Item {
-    protected char icon;
-    protected String desc;
-
-    public Item(char icon, String desc) {
-        this.icon = icon;
-        this.desc = desc;
-    }
+public class Flashlight extends Item {
+    private int batteryLevel;
+    
 
     public String getDescription() {
         return desc;

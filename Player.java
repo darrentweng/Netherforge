@@ -1,7 +1,9 @@
+import java.util.*;
+
 public class Player {
     private int x;
     private int y;
-    
+    private ArrayList<Item> inventory = new ArrayList<Item>();
     public Player(int x, int y) {
         this.x = x;
         this.y = y;
@@ -11,8 +13,12 @@ public class Player {
         int newPlayerX = x + dx;
         int newPlayerY = y + dy;
         if (board.isValidMove(newPlayerX, newPlayerY)) {
+            System.out.println("HIIII");
             x = newPlayerX;
             y = newPlayerY;
+        }
+        else {
+            System.out.println("Block or mob is in way");
         }
     }
 
@@ -40,7 +46,7 @@ public class Player {
                 move(-1,0, board);
                 break;
             case "s":
-            move(0,1, board);
+                move(0,1, board);
                 break;
             case "d":
                 move(1,0, board);

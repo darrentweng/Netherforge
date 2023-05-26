@@ -1,7 +1,8 @@
 public class Mob {
     private int x;
     private int y;
-    
+    private int range;
+    private int noise;
     public Mob(int x, int y) {
         this.x = x;
         this.y = y;
@@ -10,7 +11,10 @@ public class Mob {
     
     public void moveTowardsPlayer(Player player) {
         // Code to move the monster towards the player
+        
     }
-    
+    public String toString() {
+        return "!";
+    }
     // Additional methods for monster actions and attributes
 }

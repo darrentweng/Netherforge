@@ -1,23 +1,29 @@
 public class Board {
-    private Object[][] visibleGrid;
-    private Object[][] mapGrid;
-    private Object[][] entityGrid;
+    private Block[][] visibleGrid;
+    private Block[][] mapGrid;
+    private Item[][] itemGrid;
+    private Mob[][] mobGrid;
     private int visibleWidth;
     private int visibleHeight;
     private Player player;
 
     
-    public Board(int mapWidth, int mapHeight, int visibleWidth, int visibleHeight) {
+    public Board(int mapWidth, int mapHeight, int visibleWidth, int visibleHeight, Player player) {
         this.visibleWidth = visibleWidth;
         this.visibleHeight = visibleHeight;
-        visibleGrid = new Object[visibleHeight][visibleWidth];
-        mapGrid = new Object[mapHeight][mapWidth];
+        this.player = player;
+        visibleGrid = new Block[visibleHeight][visibleWidth];
+        mapGrid = new Block[mapHeight][mapWidth];
+        itemGrid = new Item[mapHeight][mapWidth];
+        mobGrid = new Mob[mapHeight][mapWidth];
     }
     
     public void initializeBoard() {
         // Code to initialize the map grid and visible grid
     }
-    
+    public void printCoords() {
+        System.out.println("x: " + player.getPlayerX() + ",     y: " + player.getPlayerY());
+    }
     public void drawBoard() {
         int playerX = player.getPlayerX();
         int playerY = player.getPlayerY();
@@ -47,10 +53,17 @@ public class Board {
         // Code to draw the visible grid
         for (int row = 0; row < visibleGrid.length; row++) {
             for (int col = 0; col < visibleGrid[row].length; col++) {
-                if (row  == visibleGrid.length/2 && col == visibleGrid[row].length/2) {
+                if (row == player.getPlayerY() - startY && col == player.getPlayerX() - startX) {
                     System.out.print("@");
                 }
-                else if (visibleGrid[row][col] == null) {
+                else if (mobGrid[row+startY][col+startX] != null) {
+
+                    System.out.print("a");
+                }
+                else if (itemGrid[row+startY][col+startX] != null) {
+                    System.out.print(itemGrid[row+startY][col+startX]);
+                }
+                else if (visibleGrid[row+startY][col+startX] == null) {
                     System.out.print(".");
                 }
                 else {
@@ -64,19 +77,45 @@ public class Board {
     }
     
     
-    public void setTile(int x, int y, Object tile) {
+    public void setBlock(int x, int y, Block tile) {
         // Check if the given coordinates are within the bounds of the mapGrid
         if (x >= 0 && x < mapGrid[0].length && y >= 0 && y < mapGrid.length) {
             mapGrid[y][x] = tile;
         }
     }
+    public void setItem(int x, int y, Item tile) {
+        // Check if the given coordinates are within the bounds of the mapGrid
+        if (x >= 0 && x < mapGrid[0].length && y >= 0 && y < mapGrid.length) {
+            itemGrid[y][x] = tile;
+        }
+    }
+    public void setMob(int x, int y, Mob tile) {
+        // Check if the given coordinates are within the bounds of the mapGrid
+        if (x >= 0 && x < mapGrid[0].length && y >= 0 && y < mapGrid.length) {
+            mobGrid[y][x] = tile;
+        }
+    }
     public boolean isValidMove(int x, int y) {
         // Check if the given coordinates are within the bounds of the mapGrid
         if (x >= 0 && x < mapGrid[0].length && y >= 0 && y < mapGrid.length) {
-            Object tile = mapGrid[y][x];
-            return !(tile instanceof Block || tile instanceof Mob);
+            Block tile = mapGrid[y][x];
+            Object tileMob = mobGrid[y][x];
+            return !(tile instanceof Block || tileMob instanceof Mob);
         }
         return false;
     }
-
+    public void printMob() {
+        for (int row = 0; row < mobGrid.length; row++) {
+            for (int col = 0; col < mobGrid[row].length; col++) {
+                if (mobGrid[row][col] != null) {
+                    System.out.print(mobGrid[row][col]);
+                    //System.out.println("x: " + row + ",     y: " + col);
+                }
+                else {
+                    System.out.print(".");
+                }
+            }
+            System.out.println();
+            }
+    }
 }
