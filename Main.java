@@ -5,7 +5,12 @@ import java.util.ArrayList;
 
 public class Main {
 
-    //does what it says on the tin. written by chatGPT
+    static Player p;
+    static Board b;
+    static ArrayList<GenericTBox> boxList;
+
+
+    //does what it says on the tin. written by chatGPT. get rid of darkmode??
     private static void setDarkModeColors() {
         // Set the dark mode colors
         Color darkBackgroundColor = new Color(30, 30, 30);
@@ -51,14 +56,12 @@ public class Main {
 
     public static void main(String[] args) {
         
-        
         boolean darkmode = false;
 
         if(darkmode) {
             setDarkModeColors();
         }    
 
-        //this needs to be simplified
         GenericTBox center, right, bottom;
         ListTBox left;
 
@@ -67,7 +70,7 @@ public class Main {
         right = new GenericTBox(null, GridBagConstraints.BOTH, 2, 0, 0.15, 0.3, 1, 1); 
         bottom = new ListTBox(null, GridBagConstraints.BOTH, 0, 1, 0, 0.05, 3, 1);
 
-        ArrayList<GenericTBox> boxList = new ArrayList<GenericTBox>();
+        boxList = new ArrayList<GenericTBox>();
 
         boxList.add(left);
         boxList.add(center);
@@ -77,8 +80,8 @@ public class Main {
         SwingUtilities.invokeLater(() -> createAndShowGUI(boxList));    
         
         Scanner UI = new Scanner(System.in);
-        Player p = new Player(0, 0);
-        Board b = new Board(10,10,5,5, p);
+        p = new Player(0, 0);
+        b = new Board(10,10,5,5, p);
         b.setBlock(1, 0, new Block());
         b.setBlock(3, 0, new Block());
         b.setMob(5,1, new Mob(5,1));
@@ -89,19 +92,14 @@ public class Main {
         System.out.println();
         b.printCoords();
         b.drawBoard();
-
-        while(true) {
-            recentInput = UI.nextLine();
-            p.input(recentInput, b);
-            System.out.println();
-            System.out.println();
-            b.printCoords();
-            b.drawBoard();
-            
-
-        }
-
-
         
+    }
+
+    //updates all systems. called by ConsoleTBox when cmd is inputed by user
+    public static void update(String input) {
+        p.input(input, b);
+        b.printCoords();
+        boxList.get(1).stringSetCharArray(b.drawBoard());
+
     }
 }

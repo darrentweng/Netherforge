@@ -142,5 +142,9 @@ public class GenericTBox {
     public void setCharacterArray(char[][] array) {
     }
 
+    //blank method used for CATBox
+    public void stringSetCharArray(String[][] array) {
+    }
+
 
 }

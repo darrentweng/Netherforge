@@ -46,6 +46,28 @@ public class CATBox extends GenericTBox {
 
     }
 
+    //necessary for board to update CATBox
+    public void stringSetCharArray(String[][] array) {
+        setCharacterArray(convertToCharArray(array));
+    }
+
+    //helper for stringSetCharArray
+    private char[][] convertToCharArray(String[][] strings) {
+        int numRows = strings.length;
+        int numCols = strings[0].length;
+        char[][] charArray = new char[numRows][numCols];
+    
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                String str = strings[i][j];
+                char firstChar = str.charAt(0);
+                charArray[i][j] = firstChar;
+            }
+        }
+    
+        return charArray;
+    }    
+
     public void setCharacterArray(char[][] array) {
         characterArray = array;
         updateTextFromArray();

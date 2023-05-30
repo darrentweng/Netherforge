@@ -24,7 +24,7 @@ public class Board {
     public void printCoords() {
         System.out.println("x: " + player.getPlayerX() + ",     y: " + player.getPlayerY());
     }
-    public void drawBoard() {
+    public String[][] drawBoard() {
         int playerX = player.getPlayerX();
         int playerY = player.getPlayerY();
         int startX = playerX - visibleWidth / 2;
@@ -64,10 +64,12 @@ public class Board {
         }
     }
         
+        return visibleGrid;
+        /*
         // Code to draw the visible grid
         for (int row = 0; row < visibleGrid.length; row++) {
             for (int col = 0; col < visibleGrid[row].length; col++) {
-                /* if (row == player.getPlayerY() - startY && col == player.getPlayerX() - startX) {
+                 if (row == player.getPlayerY() - startY && col == player.getPlayerX() - startX) {
                     System.out.print("@");
                 }
                 else if (mobGrid[row-startY][col-startX] != null) {
@@ -79,7 +81,7 @@ public class Board {
                 }
                 else if (visibleGrid[startY][startX] == null) {
                     System.out.print(".");
-                }*/
+                }
                 
                 //else {
                     System.out.print(visibleGrid[row][col]);
@@ -89,6 +91,7 @@ public class Board {
             }
             System.out.println();
         }
+        */
     }
     
     public void setBlock(int x, int y, Block tile) {
