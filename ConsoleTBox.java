@@ -31,6 +31,7 @@ public class ConsoleTBox extends GenericTBox implements KeyListener {
             e.consume(); // Consume the enter key event to prevent a line break in the text area
             String command = getTextArea().getText().trim();
             processCommand(command);
+            historyIndex = commandHistory.size();
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             e.consume(); // Consume the up arrow key event to prevent cursor movement in the text area
             showPreviousCommand();

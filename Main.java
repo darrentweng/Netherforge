@@ -68,7 +68,7 @@ public class Main {
         left = new ListTBox(null, GridBagConstraints.BOTH, 0, 0, 0.15, 0.3, 1, 1);
         center = new CATBox(null, GridBagConstraints.BOTH, 1, 0, 0.3, 0.3, 1, 1);
         right = new GenericTBox(null, GridBagConstraints.BOTH, 2, 0, 0.15, 0.3, 1, 1); 
-        bottom = new ListTBox(null, GridBagConstraints.BOTH, 0, 1, 0, 0.05, 3, 1);
+        bottom = new ConsoleTBox(null, GridBagConstraints.BOTH, 0, 1, 0, 0.05, 3, 1);
 
         boxList = new ArrayList<GenericTBox>();
 
@@ -86,12 +86,12 @@ public class Main {
         b.setBlock(3, 0, new Block());
         b.setMob(5,1, new Mob(5,1));
         //stores most recent user input
-        b.printMob();
+        //b.printMob();
         String recentInput;
         System.out.println();
         System.out.println();
         b.printCoords();
-        b.drawBoard();
+        boxList.get(1).stringSetCharArray(b.drawBoard());
         
     }
 
@@ -99,6 +99,7 @@ public class Main {
     public static void update(String input) {
         p.input(input, b);
         b.printCoords();
+        //System.out.print(b.drawBoard());
         boxList.get(1).stringSetCharArray(b.drawBoard());
 
     }

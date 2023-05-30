@@ -95,8 +95,11 @@ public class CATBox extends GenericTBox {
     }
 
     private int calculateFontSize(int containerWidth, int containerHeight) {
-        int maxWidth = containerWidth / characterArray[0].length * 96/72;
-        int maxHeight = containerHeight / characterArray.length * 96/72;
+        //int maxWidth = containerWidth / characterArray[0].length * 96/72;
+        //int maxHeight = containerHeight / characterArray.length * 96/72;
+
+        int maxWidth = containerWidth / characterArray[0].length;
+        int maxHeight = containerHeight / characterArray.length;
 
         return Math.min(maxWidth, maxHeight);
     }
