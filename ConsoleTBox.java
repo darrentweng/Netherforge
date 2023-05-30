@@ -48,6 +48,7 @@ public class ConsoleTBox extends GenericTBox implements KeyListener {
         if (!command.isEmpty()) {
             commandHistory.add(command);
             // Do something with the command (e.g., execute it)
+            Main.update(command);
             // Replace the text area content with a blank string
             replaceText("");
         }

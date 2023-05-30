@@ -83,11 +83,11 @@ public class GenericTBox {
 
     public void replaceText(String input) {
         text = input;
-        update();
+        updateBox();
     }
 
     //updates the content of the text box
-    public void update() {
+    public void updateBox() {
         textArea.setText(text);
         scrollPane.revalidate();
         scrollPane.repaint();

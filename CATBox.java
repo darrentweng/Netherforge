@@ -90,7 +90,8 @@ public class CATBox extends GenericTBox {
             builder.append("\n");
         }
 
-        getTextArea().setText(builder.toString());
+        replaceText(builder.toString());
+        updateBox();
     }
 
     private int calculateFontSize(int containerWidth, int containerHeight) {
