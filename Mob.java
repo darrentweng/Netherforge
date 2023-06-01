@@ -14,7 +14,7 @@ public class Mob {
         
     }
     public String toString() {
-        return "!";
+        return "I AM A MOB!";
     }
     // Additional methods for monster actions and attributes
 }
