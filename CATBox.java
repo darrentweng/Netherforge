@@ -12,7 +12,6 @@ public class CATBox extends GenericTBox {
     private char[][] characterArray;
     private char[][] displayArray;
     private JPanel panel;
-    private JLabel text;
     private JTextArea textArea;
     private int fontSize;
 
@@ -29,23 +28,18 @@ public class CATBox extends GenericTBox {
 
         panel = new JPanel(new BorderLayout());
 
-        //textArea = new JTextArea();
-
-        text = new JLabel();
+        textArea = new JTextArea();
 
         //set up the font
         fontSize = 13;
         Font font = new Font("Courier", Font.PLAIN, fontSize);
-        //textArea.setFont(font);
-        text.setFont(font);
-        /* 
+        textArea.setFont(font);
+
         //set some additional properties
         textArea.setEditable(false); // Make the text area editable
         textArea.setLineWrap(true); // Enable line wrapping
-        */
 
-        //panel.add(textArea, BorderLayout.CENTER);
-        panel.add(text, BorderLayout.CENTER);
+        panel.add(textArea, BorderLayout.CENTER);
 
         //sets up the 2D array
         characterArray = array;
@@ -86,7 +80,7 @@ public class CATBox extends GenericTBox {
         //'wipes' the displayArray clear
         for(int i=0; i<height; i++) {
             for(int j=0; j<width; j++) {
-                displayArray[i][j] = '.';
+                displayArray[i][j] = ' ';
             }
         }
 
@@ -119,7 +113,7 @@ public class CATBox extends GenericTBox {
         //finds the minimum requried number of columns and rows for the chararray
         int reqRowNum = characterArray.length;
         int reqColNum = characterArray[0].length;
-        /*
+        
         //iterates through font sizes to find the one that can hold minimum requried rows & cols
         boolean fontCheck = true;
         int fontSizeCounter = 1;
@@ -132,10 +126,6 @@ public class CATBox extends GenericTBox {
         //sets the correct font size
         Font correctFont = new Font("Courier", Font.PLAIN, fontSizeCounter-1);
         textArea.setFont(correctFont);
-        */
-        
-        Font correctFont = new Font("Courier", Font.PLAIN, 20);
-        //textArea.setFont(correctFont);
 
         //updates the displayArray to store the correct amount of spaces
         displayArray = new char[calculateRowNum(correctFont)][calculateColNum(correctFont)];
@@ -149,20 +139,20 @@ public class CATBox extends GenericTBox {
     private int calculateRowNum(Font font) {
         FontMetrics fm = getTextArea().getFontMetrics(font);
 
-        int panelHeight = panel.getHeight();
-        int textHeight = fm.getAscent();
+        double panelHeight = panel.getHeight();
+        double textHeight = fm.getAscent() * 1.4;
         
-        return panelHeight / textHeight + 1;
+        return (int)(panelHeight / textHeight + 1);
     }
 
     //calculates the maximum number of columns in the char array. only works for fonts w/ uniform spacing
     private int calculateColNum(Font font) {
         FontMetrics fm = getTextArea().getFontMetrics(font);
         
-        int panelWidth = panel.getWidth();
-        int textWidth = fm.charWidth('.');
+        double panelWidth = panel.getWidth();
+        double textWidth = fm.charWidth('0') * 1.05;
 
-        return panelWidth / textWidth + 1;
+        return (int)(panelWidth / textWidth + 1);
     }
 
     //returns true if the inputed font size will allow for storage of the charArray
@@ -214,9 +204,9 @@ public class CATBox extends GenericTBox {
             builder.append("\n");
         }
 
-        System.out.println("CATBox.updateTextFromArray(): replacing textArea with: \n" + builder.toString());
+        System.out.println("CATBox.updateTextFromArray: replacing textArea with: \n" + builder.toString());
 
-        text.setText(builder.toString());
+        textArea.setText(builder.toString());
         updateBox();
     }
 

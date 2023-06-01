@@ -144,7 +144,7 @@ public class Main {
         //stores most recent user input
         //b.printMob();
         //b.printCoords();
-        //boxList.get(1).stringSetCharArray(b.drawBoard());
+        boxList.get(1).stringSetCharArray(b.drawBoard());
         
     }
 
