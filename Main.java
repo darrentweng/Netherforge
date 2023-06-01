@@ -37,8 +37,9 @@ public class Main {
     private static void createAndShowGUI(ArrayList<GenericTBox> boxList) {
 
         //create and set up the window.
-        JFrame frame = new JFrame("GridBagLayoutDemo");
+        JFrame frame = new JFrame("Netherforge");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(400, 300));
 
         //set up the content pane.
         frame.getContentPane().setLayout(new GridBagLayout());
@@ -65,8 +66,13 @@ public class Main {
         GenericTBox center, right, bottom;
         ListTBox left;
 
+        char[][] test = {
+            {'H', 'e', 'l', 'l', 'o'},
+            {'W', 'o', 'r', 'l', 'd'}
+        };
+
         left = new ListTBox(null, GridBagConstraints.BOTH, 0, 0, 0.15, 0.3, 1, 1);
-        center = new CATBox(null, GridBagConstraints.BOTH, 1, 0, 0.3, 0.3, 1, 1);
+        center = new CATBox(test, GridBagConstraints.BOTH, 1, 0, 0.3, 0.3, 1, 1);
         right = new GenericTBox(null, GridBagConstraints.BOTH, 2, 0, 0.15, 0.3, 1, 1); 
         bottom = new ConsoleTBox(null, GridBagConstraints.BOTH, 0, 1, 0, 0.05, 3, 1);
 
@@ -87,11 +93,8 @@ public class Main {
         b.setMob(5,1, new Mob(5,1));
         //stores most recent user input
         //b.printMob();
-        String recentInput;
-        System.out.println();
-        System.out.println();
-        b.printCoords();
-        boxList.get(1).stringSetCharArray(b.drawBoard());
+        //b.printCoords();
+        //boxList.get(1).stringSetCharArray(b.drawBoard());
         
     }
 
@@ -103,4 +106,7 @@ public class Main {
         boxList.get(1).stringSetCharArray(b.drawBoard());
 
     }
+
+    
+
 }

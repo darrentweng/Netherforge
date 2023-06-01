@@ -121,8 +121,6 @@ public class GenericTBox {
         
         //adds the TBox to the inputted pane
         pane.add(scrollPane, gbc);
-        System.out.println("generic");
-
     }
 
     //blank method used for ListTBox
