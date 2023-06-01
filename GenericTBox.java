@@ -112,7 +112,6 @@ public class GenericTBox {
         gbc.gridheight = gridheight;
     }
 
-
     //used for initializing the GUI
     public void addToPane(Container pane, GridBagConstraints gbc) {
         
@@ -121,6 +120,18 @@ public class GenericTBox {
         
         //adds the TBox to the inputted pane
         pane.add(scrollPane, gbc);
+    }
+
+    //overridden addToPane for non gridbaglayout based panes
+    public void addToPane(Container pane) {
+        //adds the TBox to the inputted pane
+        pane.add(scrollPane);
+    }
+
+    //overridden addToPane for non gridbaglayout based panes
+    public void addToPane(Container pane, String dir) {
+        //adds the TBox to the inputted pane
+        pane.add(scrollPane, dir);
     }
 
     //blank method used for ListTBox

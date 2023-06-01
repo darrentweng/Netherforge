@@ -12,6 +12,7 @@ public class CATBox extends GenericTBox {
     private char[][] characterArray;
     private char[][] displayArray;
     private JPanel panel;
+    private JLabel text;
     private JTextArea textArea;
     private int fontSize;
 
@@ -28,18 +29,23 @@ public class CATBox extends GenericTBox {
 
         panel = new JPanel(new BorderLayout());
 
-        textArea = new JTextArea();
+        //textArea = new JTextArea();
+
+        text = new JLabel();
 
         //set up the font
         fontSize = 13;
         Font font = new Font("Courier", Font.PLAIN, fontSize);
-        textArea.setFont(font);
-
+        //textArea.setFont(font);
+        text.setFont(font);
+        /* 
         //set some additional properties
         textArea.setEditable(false); // Make the text area editable
         textArea.setLineWrap(true); // Enable line wrapping
+        */
 
-        panel.add(textArea, BorderLayout.CENTER);
+        //panel.add(textArea, BorderLayout.CENTER);
+        panel.add(text, BorderLayout.CENTER);
 
         //sets up the 2D array
         characterArray = array;
@@ -113,7 +119,7 @@ public class CATBox extends GenericTBox {
         //finds the minimum requried number of columns and rows for the chararray
         int reqRowNum = characterArray.length;
         int reqColNum = characterArray[0].length;
-
+        /*
         //iterates through font sizes to find the one that can hold minimum requried rows & cols
         boolean fontCheck = true;
         int fontSizeCounter = 1;
@@ -126,6 +132,10 @@ public class CATBox extends GenericTBox {
         //sets the correct font size
         Font correctFont = new Font("Courier", Font.PLAIN, fontSizeCounter-1);
         textArea.setFont(correctFont);
+        */
+        
+        Font correctFont = new Font("Courier", Font.PLAIN, 20);
+        //textArea.setFont(correctFont);
 
         //updates the displayArray to store the correct amount of spaces
         displayArray = new char[calculateRowNum(correctFont)][calculateColNum(correctFont)];
@@ -204,9 +214,9 @@ public class CATBox extends GenericTBox {
             builder.append("\n");
         }
 
-        System.out.println("CATBox.updateTextFromArray: replacing textArea with: \n" + builder.toString());
+        System.out.println("CATBox.updateTextFromArray(): replacing textArea with: \n" + builder.toString());
 
-        textArea.setText(builder.toString());
+        text.setText(builder.toString());
         updateBox();
     }
 
@@ -230,6 +240,12 @@ public class CATBox extends GenericTBox {
         
         //adds the TBox to the inputted pane
         pane.add(panel, gbc);
+    }
+
+    @Override
+    public void addToPane(Container pane) {
+        //adds the TBox to the inputted pane
+        pane.add(panel);
     }
 
     @Override

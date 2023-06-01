@@ -33,7 +33,7 @@ public class Main {
         UIManager.put("ScrollBar.thumb", darkForegroundColor);
         UIManager.put("ScrollBar.track", darkBackgroundColor);
     }
-    
+    /*
     private static void createAndShowGUI(ArrayList<GenericTBox> boxList) {
 
         //create and set up the window.
@@ -42,18 +42,68 @@ public class Main {
         frame.setPreferredSize(new Dimension(400, 300));
 
         //set up the content pane.
-        frame.getContentPane().setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        frame.getContentPane().setLayout(new GridLayout(2, 1));
+        JPanel upperPanel = new JPanel();
+        upperPanel.setLayout(new GridLayout(1, 0));
+        //upperPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.8)));
+        upperPanel.setPreferredSize(new Dimension(100, 100));
 
-        //add TBoxes to the content pane
-        for(int i=0; i<boxList.size(); i++) {
-            boxList.get(i).addToPane(frame.getContentPane(), gbc);
+        JPanel lowerPanel = new JPanel(new GridLayout(1, 0));
+        lowerPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.2)));
+
+        //add TBoxes to the content pane (this is sloppy and will break if boxList is changed)
+        for(int i=0; i<3; i++) {
+            boxList.get(i).addToPane(upperPanel);
         }
+
+        boxList.get(3).addToPane(lowerPanel);
+
+        frame.getContentPane().add(upperPanel, BorderLayout.NORTH);
+        //frame.getContentPane().add(new JSeparator(), BorderLayout.CENTER);
+        frame.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
 
         //display the window.
         frame.pack();
         frame.setVisible(true);
+    }*/
+
+    private static void createAndShowGUI(ArrayList<GenericTBox> boxList) {
+        // Create and set up the window.
+        JFrame frame = new JFrame("Netherforge");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(400, 300));
+        //frame.setResizable(false);
+    
+        // Set up the content pane.
+        frame.getContentPane().setLayout(new GridLayout(2, 1));
+    
+        // Create the upper panel and set its layout.
+        JPanel upperPanel = new JPanel();
+        upperPanel.setLayout(new GridLayout(1, 3));
+        upperPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.8)));
+    
+        // Add TBoxes to the upper panel.
+        for(int i=0; i<3; i++) {
+            boxList.get(i).addToPane(upperPanel);
+        }
+    
+        // Create the lower panel.
+        JPanel lowerPanel = new JPanel();
+        lowerPanel.setLayout(new BorderLayout());
+        lowerPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.2)));
+    
+        // Add boxList(3) to the lower panel.
+        boxList.get(3).addToPane(lowerPanel);
+    
+        // Add the panels to the content pane.
+        frame.getContentPane().add(upperPanel, BorderLayout.NORTH);
+        frame.getContentPane().add(lowerPanel, BorderLayout.CENTER);
+    
+        // Display the window.
+        frame.pack();
+        frame.setVisible(true);
     }
+    
 
     public static void main(String[] args) {
         
