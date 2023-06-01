@@ -1,4 +1,4 @@
-public class Flashlight extends Item {
+public class Fleshlight extends Item {
     private int batteryLevel;
     
 
