@@ -225,7 +225,7 @@ public class Main {
         
         Scanner UI = new Scanner(System.in);
         p = new Player(0, 0);
-        b = new Board(10,10,6,5, p);
+        b = new Board(10,10, 3, p);
         b.setBlock(1, 0, new Block());
         b.setBlock(3, 0, new Block());
         b.setMob(5,1, new Mob(5,1));

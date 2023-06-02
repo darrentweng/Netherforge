@@ -73,7 +73,7 @@ public class CATBox extends GenericTBox {
                 //editorPane.setFont(font);
                 //editorPane.setText(formatHTML(displayArray));
                 //updateBox();
-                System.out.println("CATBox.main(): component resized");
+                System.out.println("CATBox.CATBox(): component resized");
             }
         });
 
@@ -104,14 +104,16 @@ public class CATBox extends GenericTBox {
         }
 
         //calculate starting positions for the centered array
-        int startX = (widthB - widthA) / 2 + 1;
-        int startY = (heightB - heightA) / 2 + 1;
+        //int startX = (widthB - widthA) / 2 + 1;
+        //int startY = (heightB - heightA) / 2 + 1;
+        int startX = (widthB - widthA) / 2;
+        int startY = (heightB - heightA) / 2;
 
         //place the input array into the centered array
         int inputY = 0;
-        for (int y = startY; y < startY + characterArray.length - 1; y++) {
+        for (int y = startY; y < startY + characterArray.length; y++) {
             int inputX = 0;
-            for (int x = startX; x < startX + characterArray[0].length - 1; x++) {
+            for (int x = startX; x < startX + characterArray[0].length; x++) {
                 displayArray[y][x] = characterArray[inputY][inputX];
                 inputX++;
             }
