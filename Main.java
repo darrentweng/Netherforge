@@ -10,6 +10,7 @@ public class Main {
     static Board b;
     static ArrayList<GenericTBox> boxList;
     static JFrame frame;
+    static Inventory i;
 
     public static int getFrameWidth() {
         return frame.getWidth();
@@ -42,86 +43,6 @@ public class Main {
         UIManager.put("ScrollBar.thumb", darkForegroundColor);
         UIManager.put("ScrollBar.track", darkBackgroundColor);
     }
-    /*
-    private static void createAndShowGUI(ArrayList<GenericTBox> boxList) {
-
-        //create and set up the window.
-        JFrame frame = new JFrame("Netherforge");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 300));
-
-        //set up the content pane.
-        frame.getContentPane().setLayout(new GridLayout(2, 1));
-        JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(1, 0));
-        upperPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.8)));
-        //upperPanel.setPreferredSize(new Dimension(100, 100));
-
-        JPanel lowerPanel = new JPanel(new GridLayout(1, 0));
-        lowerPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.2)));
-
-        //add TBoxes to the content pane (this is sloppy and will break if boxList is changed)
-        for(int i=0; i<3; i++) {
-            boxList.get(i).addToPane(upperPanel);
-        }
-
-        boxList.get(3).addToPane(lowerPanel);
-
-        frame.getContentPane().add(upperPanel, BorderLayout.NORTH);
-        frame.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
-
-        frame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                upperPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.8)));
-                lowerPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.2)));
-            }
-        });
-
-        //display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-    */
-
-    /*
-    private static void createAndShowGUI(ArrayList<GenericTBox> boxList) {
-        // Create and set up the window.
-        JFrame frame = new JFrame("Netherforge");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 300));
-        //frame.setResizable(false);
-    
-        // Set up the content pane.
-        frame.getContentPane().setLayout(new GridLayout(2, 1));
-    
-        // Create the upper panel and set its layout.
-        JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(1, 3));
-        upperPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.8)));
-    
-        // Add TBoxes to the upper panel.
-        for(int i=0; i<3; i++) {
-            boxList.get(i).addToPane(upperPanel);
-        }
-    
-        // Create the lower panel.
-        JPanel lowerPanel = new JPanel();
-        lowerPanel.setLayout(new BorderLayout());
-        lowerPanel.setPreferredSize(new Dimension((int)frame.getWidth(), (int)(frame.getHeight()*0.2)));
-    
-        // Add boxList(3) to the lower panel.
-        boxList.get(3).addToPane(lowerPanel);
-    
-        // Add the panels to the content pane.
-        frame.getContentPane().add(upperPanel, BorderLayout.NORTH);
-        frame.getContentPane().add(lowerPanel, BorderLayout.CENTER);
-    
-        // Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-    */
     
     private static void createAndShowGUI(ArrayList<GenericTBox> boxList) {
         //create and set up the window
@@ -209,9 +130,9 @@ public class Main {
             {'W', 'o', 'r', 'l', 'd'}
         };
 
-        left = new ListTBox(null, GridBagConstraints.HORIZONTAL, 0, 0, 0, 0, 1, 1);
+        left = new ListTBox(null, GridBagConstraints.HORIZONTAL, 0, 0, 0, 0, 1, 1, 16);
         center = new CATBox(test, GridBagConstraints.HORIZONTAL, 1, 0, 1, 0, 1, 1);
-        right = new GenericTBox(null, GridBagConstraints.HORIZONTAL, 2, 0, 0, 0, 1, 1); 
+        right = new ListTBox("test", GridBagConstraints.HORIZONTAL, 2, 0, 0, 0, 1, 1, 12); 
         bottom = new ConsoleTBox(null, GridBagConstraints.BOTH, 0, 0, 1, 1, 1, 1);
 
         boxList = new ArrayList<GenericTBox>();
@@ -221,19 +142,22 @@ public class Main {
         boxList.add(right);
         boxList.add(bottom);
 
+        i = new Inventory(boxList.get(0));
+
         SwingUtilities.invokeLater(() -> createAndShowGUI(boxList));    
         
         Scanner UI = new Scanner(System.in);
-        p = new Player(0, 0);
-        b = new Board(10,10, 3, p);
+        p = new Player(1, 1);
+        b = new Board(16,25, 3, p);
+        b.buildMapFromFile();
         b.setBlock(1, 0, new Block());
         b.setBlock(3, 0, new Block());
         b.setMob(5,1, new Mob(5,1));
-        //stores most recent user input
-        //b.printMob();
-        //b.printCoords();
         boxList.get(1).stringSetCharArray(b.drawBoard());
-        
+
+        boxList.get(2).appendToList("With a ringing headache, you awaken in a dimly lit dungeon, your eyes struggling to adjust to the darkness. Cold and damp, the stone walls are adorned with ancient runes, whispering secrets of forgotten ages. The stagnant air carries a scent of decay, mingled with the metallic tang of blood. Lost and disoriented, you have no recollection of how you arrived here.");
+        boxList.get(2).appendToList("You see a flickering light to your southeast. Perhaps a torch you could use to better see your surroundings?");
+
     }
 
     //updates all systems. called by ConsoleTBox when cmd is inputed by user

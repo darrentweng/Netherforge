@@ -1,14 +1,16 @@
+import java.awt.Font;
 import java.util.ArrayList;
 
 //written in large part by chatGPT. using chatGPT to create child classes with slight variations seems viable
 public class ListTBox extends GenericTBox {
     private ArrayList<String> textList;
 
-    public ListTBox(String t, int f, int gx, int gy, double wx, double wy, int gw, int gh) {
+    public ListTBox(String t, int f, int gx, int gy, double wx, double wy, int gw, int gh, int fs) {
         super(t, f, gx, gy, wx, wy, gw, gh);
 
         //set some additional properties
         getTextArea().setEditable(false); // Make the text area non-editable
+        getTextArea().setFont(new Font("Courier", Font.PLAIN, fs));
 
         textList = new ArrayList<>();
     }
@@ -19,6 +21,7 @@ public class ListTBox extends GenericTBox {
     
     public void appendToList(String input) {
         textList.add(input);
+        textList.add("");
         updateTextFromList();
     }
 

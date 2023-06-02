@@ -114,6 +114,7 @@ public class CATBox extends GenericTBox {
         for (int y = startY; y < startY + characterArray.length; y++) {
             int inputX = 0;
             for (int x = startX; x < startX + characterArray[0].length; x++) {
+                System.out.println("CATBox.centerArray(): inputX = " + inputX + " and inputY  = " + inputY);
                 displayArray[y][x] = characterArray[inputY][inputX];
                 inputX++;
             }
@@ -211,7 +212,7 @@ public class CATBox extends GenericTBox {
 
     public void setCharacterArray(char[][] array) {
         characterArray = array;
-        centerArray();
+        resize();
         updateTextFromArray();
     }
 

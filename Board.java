@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
 public class Board {
     private String[][] visibleGrid;
     private Block[][] mapGrid;
@@ -172,5 +176,49 @@ public class Board {
 
         return builder.toString();
 
+    }
+
+    public void buildMapFromFile() {
+        int numRows = 0;
+        int numCols = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(Paths.get("").toAbsolutePath().toString() + "/Netherforge" + "/map.txt"))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                numRows++; // Increment row count for each line
+
+                if (line.length() > numCols) {
+                    numCols = line.length(); // Update the number of columns if a longer line is found
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to read the file: " + e.getMessage());
+            return;
+        }
+
+        mapGrid = new Block[numRows][numCols];
+        itemGrid = new Item[numRows][numCols];
+        mobGrid = new Mob[numRows][numCols];
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(Paths.get("").toAbsolutePath().toString() + "/Netherforge" + "/map.txt"))) {
+            String line;
+            int height = 0;
+    
+            while ((line = reader.readLine()) != null) {
+                for (int col = 0; col < line.length(); col++) {
+                    char ch = line.charAt(col);
+                    if (ch == '#') {
+                        setBlock(col, height, new Block());
+                    }
+                }
+                height++;
+            }
+
+
+
+        } catch (IOException e) {
+            System.out.println("Failed to load map from file: " + e.getMessage());
+        }
     }
 }
