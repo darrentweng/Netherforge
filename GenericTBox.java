@@ -155,5 +155,9 @@ public class GenericTBox {
     public void stringSetCharArray(String[][] array) {
     }
 
+    //blank method used for CATBox
+    public JPanel getPanel() {
+        return null;
+    }
 
 }

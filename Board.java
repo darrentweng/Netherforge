@@ -21,9 +21,11 @@ public class Board {
     public void initializeBoard() {
         // Code to initialize the map grid and visible grid
     }
+    
     public void printCoords() {
         System.out.println("x: " + player.getPlayerX() + ",     y: " + player.getPlayerY());
     }
+    
     public String[][] drawBoard() {
         int playerX = player.getPlayerX();
         int playerY = player.getPlayerY();

@@ -14,6 +14,7 @@ public class CATBox extends GenericTBox {
     private JPanel panel;
     private JTextArea textArea;
     private int fontSize;
+    JEditorPane editorPane;
 
     public CATBox(char[][] array,
                   int fill,
@@ -30,16 +31,24 @@ public class CATBox extends GenericTBox {
 
         textArea = new JTextArea();
 
+        //editorPane = new JEditorPane();
+        //editorPane.setContentType("text/html");
+
         //set up the font
         fontSize = 13;
         Font font = new Font("Courier", Font.PLAIN, fontSize);
         textArea.setFont(font);
+        //editorPane.setFont(font);
 
         //set some additional properties
         textArea.setEditable(false); // Make the text area editable
         textArea.setLineWrap(true); // Enable line wrapping
+        textArea.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+        textArea.setAlignmentY(JTextArea.CENTER_ALIGNMENT);
 
         panel.add(textArea, BorderLayout.CENTER);
+        //editorPane.setEditable(false);
+        //panel.add(editorPane, BorderLayout.CENTER);
 
         //sets up the 2D array
         characterArray = array;
@@ -51,11 +60,8 @@ public class CATBox extends GenericTBox {
             characterArray = new char[1][1];
         }
         if(displayArray == null) {
-            displayArray = new char[4][4];
+            displayArray = new char[6][6];
         }    
-
-        //resize();
-        //updateTextFromArray();
 
         // Add a component listener to the scroll pane
         panel.addComponentListener(new ComponentAdapter() {
@@ -63,34 +69,43 @@ public class CATBox extends GenericTBox {
             public void componentResized(ComponentEvent e) {
                 resize();
                 updateTextFromArray();
+                //Font font = new Font("Courier", Font.PLAIN, 400);
+                //editorPane.setFont(font);
+                //editorPane.setText(formatHTML(displayArray));
+                //updateBox();
                 System.out.println("CATBox.main(): component resized");
             }
         });
 
     }
 
+    public JPanel getPanel() {
+        return panel;
+    }
+
     //centers the characterArray in the displayArray. written in part by chatGPT
     //PREREQUISITE: displayArray must be larger than characterArray. only call this method in resize()
     private void centerArray() {
         
+        //store the width and height of the charArray
+        int widthA = characterArray[0].length;
+        int heightA = characterArray.length;
+
         //store the width and height of the displayArray
-        int width = displayArray[0].length;
-        int height = displayArray.length;
+        int widthB = displayArray[0].length;
+        int heightB = displayArray.length;
+
 
         //'wipes' the displayArray clear
-        for(int i=0; i<height; i++) {
-            for(int j=0; j<width; j++) {
+        for(int i=0; i<heightB; i++) {
+            for(int j=0; j<widthB; j++) {
                 displayArray[i][j] = ' ';
             }
         }
 
-        //calculate horizontal and vertical center positions
-        int centerX = width / 2;
-        int centerY = height / 2;
-
-        //calculate starting positions for placing the input array
-        int startX = centerX - (characterArray[0].length / 2);
-        int startY = centerY - (characterArray.length / 2);
+        //calculate starting positions for the centered array
+        int startX = (widthB - widthA) / 2 + 1;
+        int startY = (heightB - heightA) / 2 + 1;
 
         //place the input array into the centered array
         int inputY = 0;
@@ -123,9 +138,13 @@ public class CATBox extends GenericTBox {
             fontSizeCounter++;
         }
 
+        fontSizeCounter--;
+
         //sets the correct font size
-        Font correctFont = new Font("Courier", Font.PLAIN, fontSizeCounter-1);
+        Font correctFont = new Font("Courier", Font.PLAIN, fontSizeCounter);
         textArea.setFont(correctFont);
+        //editorPane.setFont(correctFont);
+        System.out.println("CATBox.resize(): set font size to: " + fontSizeCounter);
 
         //updates the displayArray to store the correct amount of spaces
         displayArray = new char[calculateRowNum(correctFont)][calculateColNum(correctFont)];
@@ -139,8 +158,9 @@ public class CATBox extends GenericTBox {
     private int calculateRowNum(Font font) {
         FontMetrics fm = getTextArea().getFontMetrics(font);
 
-        double panelHeight = panel.getHeight();
-        double textHeight = fm.getAscent() * 1.4;
+        //double panelHeight = Main.getFrameHeight()*0.8;
+        double panelHeight = Main.getFrameHeight()*0.75;
+        double textHeight = fm.getHeight();
         
         return (int)(panelHeight / textHeight + 1);
     }
@@ -149,8 +169,8 @@ public class CATBox extends GenericTBox {
     private int calculateColNum(Font font) {
         FontMetrics fm = getTextArea().getFontMetrics(font);
         
-        double panelWidth = panel.getWidth();
-        double textWidth = fm.charWidth('0') * 1.05;
+        double panelWidth = Main.getFrameWidth()*1/3;
+        double textWidth = fm.charWidth('0') * 1.2;
 
         return (int)(panelWidth / textWidth + 1);
     }
@@ -162,7 +182,7 @@ public class CATBox extends GenericTBox {
         System.out.println("CATBox.checkFontSize(): checking pt. " + fontSize + " with " + reqRowNum + " rows and " + reqColNum + " cols");
 
         Font font = new Font("Courier", Font.PLAIN, fontSize);
-        return calculateRowNum(font) >= reqRowNum && calculateColNum(font) >= reqColNum;
+        return calculateRowNum(font) > reqRowNum && calculateColNum(font) > reqColNum;
     }
 
     //necessary for board to update CATBox
@@ -195,13 +215,22 @@ public class CATBox extends GenericTBox {
 
     //updates the text of the TBox from the displayArray
     private void updateTextFromArray() {
-        StringBuilder builder = new StringBuilder();
 
-        for (char[] row : displayArray) {
-            for (char ch : row) {
+        StringBuilder builder = new StringBuilder();
+        int numRows = displayArray.length;
+
+        for (int i = 0; i < numRows; i++) {
+            char[] row = displayArray[i];
+            int numCols = row.length;
+
+            for (int j = 0; j < numCols; j++) {
+                char ch = row[j];
                 builder.append(ch);
             }
-            builder.append("\n");
+
+            if (i < numRows - 1) {
+                builder.append("\n");
+            }
         }
 
         System.out.println("CATBox.updateTextFromArray: replacing textArea with: \n" + builder.toString());
@@ -245,4 +274,33 @@ public class CATBox extends GenericTBox {
         panel.repaint();
     }
 
+    private String formatHTML(char[][] paragraph) {
+        StringBuilder html = new StringBuilder();
+        html.append("<html>\n");
+        html.append("<head>\n");
+        html.append("<style>\n");
+        html.append("body { text-align: center; }\n");
+        html.append("</style>\n");
+        html.append("</head>\n");
+        html.append("<body>\n");
+        html.append("<p>\n");
+
+        int numRows = paragraph.length;
+        for (int i = 0; i < numRows; i++) {
+            char[] row = paragraph[i];
+            int numCols = row.length;
+            for (int j = 0; j < numCols; j++) {
+                html.append(row[j]);
+            }
+            if (i != numRows - 1) {
+                html.append("<br>\n");
+            }
+        }
+
+        html.append("</p>\n");
+        html.append("</body>\n");
+        html.append("</html>\n");
+
+        return html.toString();
+    }
 }

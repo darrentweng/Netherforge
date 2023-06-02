@@ -13,7 +13,6 @@ public class Player {
         int newPlayerX = x + dx;
         int newPlayerY = y + dy;
         if (board.isValidMove(newPlayerX, newPlayerY)) {
-            System.out.println("HIIII");
             x = newPlayerX;
             y = newPlayerY;
         }
