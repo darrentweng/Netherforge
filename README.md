@@ -1,9 +1,22 @@
 # Netherforge
 
 ## Made by PJ and Darren
-In order to compile the classes, run: 
+Download Maven to compile netherforge.jar
+
+In order to compile jar file, run: 
 ```
-javac *.java
+mvn package
 ```
-in the same folder as Main.java
+in the root directory
+
+In order to set your OpenAI Token, run 
+```
+set OPENAI_TOKEN="YOUR_TOKEN"
+```
+(Do not use quotation marks)
+
+In order to run the jar file, run:
+```
+java -jar target\netherforge-0.1.0.jar
+```
 
