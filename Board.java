@@ -53,6 +53,8 @@ public class Board {
         } else if (endY > mapGrid.length) {
             startY = mapGrid.length - (2 * visibleRadius);
         }
+
+        visibleGrid = new String[visibleRadius * 2 + 1][visibleRadius * 2 + 1];
         
         // Copy the relevant portion of the mapGrid to visibleGrid
         for (int row = 0; row < (2 * visibleRadius + 1); row++) {
@@ -210,6 +212,8 @@ public class Board {
                     char ch = line.charAt(col);
                     if (ch == '#') {
                         setBlock(col, height, new Block());
+                    } else if (ch == ' ') {
+                        setBlock(col, height, new Block(' '));
                     }
                 }
                 height++;
@@ -220,5 +224,9 @@ public class Board {
         } catch (IOException e) {
             System.out.println("Failed to load map from file: " + e.getMessage());
         }
+    }
+
+    public void setVisibility(int visRad) {
+        visibleRadius = visRad;
     }
 }

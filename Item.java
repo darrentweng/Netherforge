@@ -17,4 +17,12 @@ public class Item {
     public String toString() {
         return String.valueOf(icon);
     }
+
+    public void use() {
+
+    }
+
+    public void use(Board b) {
+        
+    }
 }

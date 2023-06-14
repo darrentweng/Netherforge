@@ -1,5 +1,15 @@
 public class Block {
     
+    private char icon;
+
+    public Block(char icon) {
+        this.icon = icon;
+    }
+
+    public Block() {
+        this.icon = '#';
+    }
+
     private String desc = "A block";
     public String getDescription() {
         return desc;
@@ -7,6 +17,6 @@ public class Block {
 
     @Override
     public String toString() {
-        return "#";
+        return String.valueOf(icon);
     }
 }

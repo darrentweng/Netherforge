@@ -3,7 +3,7 @@ import java.util.List;
 
 //written entirely by chatGPT using item.java, genericTBox.java and ListTBox.java as input
 public class Inventory {
-    private List<Item> items;
+    private ArrayList<Item> items;
     private ListTBox inventoryList;
 
     public Inventory(GenericTBox listTBox) {
@@ -18,6 +18,7 @@ public class Inventory {
      */
     public void addItem(Item item) {
         items.add(item); // Add the item to the items list
+        System.out.println("Inventory.addItem(): inventoryList updated to: " + getItemNames(items));
         updateInventoryList(); // Update the inventory list box
     }
 
@@ -36,8 +37,23 @@ public class Inventory {
      *
      * @return The list of items.
      */
-    public List<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
+    }
+
+    private String getItemNames(ArrayList<Item> itemList) {
+        StringBuilder sb = new StringBuilder();
+
+        for (Item item : itemList) {
+            sb.append(item.getDescription()).append(", ");
+        }
+
+        // Remove the trailing comma and space if there are items in the list
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 2);
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -45,9 +61,10 @@ public class Inventory {
      */
     private void updateInventoryList() {
         ArrayList<String> itemList = new ArrayList<>();
-        for (Item item : items) {
-            itemList.add("- " + item.getDescription()); // Format each item as a bullet point
+        for (int j=0; j<items.size(); j++) {
+            itemList.add(j+1 + ".) " + items.get(j).getDescription()); // Format each item as a bullet point
         }
+
         inventoryList.replaceList(itemList); // Replace the content of the inventory list box
     }
 }

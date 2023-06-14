@@ -148,11 +148,11 @@ public class Main {
         
         Scanner UI = new Scanner(System.in);
         p = new Player(1, 1);
-        b = new Board(16,25, 3, p);
+        b = new Board(16,25, 2, p);
         b.buildMapFromFile();
         b.setBlock(1, 0, new Block());
         b.setBlock(3, 0, new Block());
-        b.setMob(5,1, new Mob(5,1));
+        b.setMob(21,9, new Mob(21,9));
         boxList.get(1).stringSetCharArray(b.drawBoard());
 
         boxList.get(2).appendToList("With a ringing headache, you awaken in a dimly lit dungeon, your eyes struggling to adjust to the darkness. Cold and damp, the stone walls are adorned with ancient runes, whispering secrets of forgotten ages. The stagnant air carries a scent of decay, mingled with the metallic tang of blood. Lost and disoriented, you have no recollection of how you arrived here.");
@@ -162,7 +162,7 @@ public class Main {
 
     //updates all systems. called by ConsoleTBox when cmd is inputed by user
     public static void update(String input) {
-        p.input(input, b);
+        p.input(input, b, i);
         b.printCoords();
         //System.out.print(b.drawBoard());
         boxList.get(1).stringSetCharArray(b.drawBoard());

@@ -36,7 +36,9 @@ public class Player {
     // Additional methods for player actions and attributes
 
     //takes player input, returns false if found no applicable inputs
-    public boolean input(String _i, Board board) {
+    public boolean input(String _i, Board board, Inventory inventory) {
+        System.out.println("Player.input(): player command recieved: " + _i);
+        
         switch(_i) {
             case "w":
                 move(0,-1, board);
@@ -50,6 +52,11 @@ public class Player {
             case "d":
                 move(1,0, board);
                 break;
+            case "give torch":
+                inventory.addItem(new Torch());
+                break;
+            case "use 1":
+                inventory.getItems().get(0).use(board);
             default:
                 return false;
         }
